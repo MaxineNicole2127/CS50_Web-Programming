@@ -1,0 +1,139 @@
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans&family=Poppins:wght@300&family=Roboto&display=swap');
+@import 'colors';
+@import 'media-queries';
+
+* {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+nav {
+    // border: 1px solid black;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 20px 30px;
+    img {
+        height: 32px;
+    }
+
+    a {
+        margin-right: 20px;
+        color: $dark2;
+        text-decoration: none;
+        font-family: Arial, Helvetica, sans-serif;
+        font-size: 14px;
+
+        &:hover {
+            color: $blue;
+        }
+    }
+}
+
+$input-length: 550px;
+
+.advancedSearch {
+    // border: 2px solid black;
+    padding: 20px 50px;
+    #title {
+        color: $red;
+        font-size: 21px;
+        margin-bottom: 60px;
+    }
+
+    form {
+        table {
+            td {
+                flex-wrap: wrap;
+                padding: 10px;
+            }
+
+            #num-range .input {
+                display: flex;
+                justify-content: space-between;
+                align-items: center;
+                .container {
+                    width: calc($input-length/2.3);
+                }
+            }
+            
+            #titles {
+                #find_pages {
+                    color: $dark3;
+                }
+
+                #to_do_this {
+                    font-weight: bold;
+                    font-size: 13px;
+                    color: $darker-gray;
+                    @include tablet {
+                        display: none;
+                    }
+                }
+            }
+
+            .labels {
+                width: 200px;
+                color: $dark3;
+                font-size: 14px;
+            }
+
+            .input {
+                .container {
+                    border: 1px solid $grayish;
+                    width: $input-length;
+                    display: flex;
+                    border-radius: 2px;
+                    input {
+                        flex: 1;
+                        padding: 6px 10px;
+                        background: transparent;
+                        border: none; outline: none;
+
+                        &:focus {
+                            box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.1) inset;
+                        }
+                    }
+                }
+            }
+
+            .instructions {
+                width: 310px;
+                font-size: 13px;
+                @include tablet {
+                    display: none;
+                }
+            }
+
+            #buttonPart {
+                #td-button {
+                    display: flex;
+                    justify-content: right;
+                    button {
+                        margin-top: 14px;
+                        padding: 8px 12px;
+                        background-color: $lighter-blue;
+                        border: 1px solid $dark-blue;
+                        border-radius: 4px;
+                        cursor: pointer;
+                        a {
+                            text-decoration: none;
+                            color: white;
+                            font-weight: bold;
+                            font-size: 12px;
+                        }
+
+                        &:hover {
+                            box-shadow: 0px 0px 2px 1px rgba(0,0,0,0.2) inset;
+                        }
+                    }
+                }
+            }
+        }
+        input[type="submit"]{
+            display: none;
+        }
+    }
+}

@@ -1,0 +1,3 @@
+IMAGES:
+Google Logo - https://www.google.com/images/branding/googlelogo/1x/googlelogo_color_272x92dp.png
+Search - <i class="fa-solid fa-magnifying-glass"></i>
