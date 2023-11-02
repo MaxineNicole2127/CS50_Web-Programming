@@ -1,17 +1,17 @@
 @import url("https://fonts.googleapis.com/css2?family=Kumbh+Sans&family=Poppins:wght@300&family=Roboto&display=swap");
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+  font-family: "Roboto", sans-serif;
+}
+
 /*
 @mixin mobile {
     @media screen and (max-width: 280px){
         @content;
     }
 }*/
-* {
-  margin: 0;
-  padding: 0;
-  box-sizing: border-box;
-  font-family: Arial, Helvetica, sans-serif;
-}
-
 nav {
   display: flex;
   justify-content: space-between;
@@ -50,7 +50,10 @@ nav a:hover {
   align-items: center;
 }
 .advancedSearch form table #num-range .input .container {
-  width: 239.1304347826px;
+  min-width: 275px;
+}
+.advancedSearch form table #num-range .input p {
+  padding: 0px 15px;
 }
 .advancedSearch form table #titles #find_pages {
   color: #333333;
@@ -72,7 +75,7 @@ nav a:hover {
 }
 .advancedSearch form table .input .container {
   border: 1px solid #DFE1E5;
-  width: 550px;
+  min-width: 550px;
   display: flex;
   border-radius: 2px;
 }
@@ -99,23 +102,18 @@ nav a:hover {
   display: flex;
   justify-content: right;
 }
-.advancedSearch form table #buttonPart #td-button button {
+.advancedSearch form table #buttonPart #td-button input {
   margin-top: 14px;
   padding: 8px 12px;
   background-color: #4C8EFB;
   border: 1px solid #3079ED;
   border-radius: 4px;
   cursor: pointer;
-}
-.advancedSearch form table #buttonPart #td-button button a {
   text-decoration: none;
   color: white;
   font-weight: bold;
   font-size: 12px;
 }
-.advancedSearch form table #buttonPart #td-button button:hover {
+.advancedSearch form table #buttonPart #td-button input:hover {
   box-shadow: 0px 0px 2px 1px rgba(0, 0, 0, 0.2) inset;
-}
-.advancedSearch form input[type=submit] {
-  display: none;
 }/*# sourceMappingURL=advancedSearch.css.map */

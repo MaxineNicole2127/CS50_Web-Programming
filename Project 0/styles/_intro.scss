@@ -1,0 +1,22 @@
+@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans&family=Poppins:wght@300&family=Roboto&display=swap');
+@import 'colors';
+
+$subtract: 100px;
+
+%flex-vertical {
+    display: flex;
+    align-items: center;
+}
+
+%no-border-outline {
+    border: none;
+    outline: none;
+    background: transparent;
+}
+
+* {
+    margin: 0; 
+    padding: 0;
+    box-sizing: border-box;
+    font-family: "Roboto", sans-serif;
+}

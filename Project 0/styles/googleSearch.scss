@@ -1,14 +1,4 @@
-@import url('https://fonts.googleapis.com/css2?family=Kumbh+Sans&family=Poppins:wght@300&family=Roboto&display=swap');
-@import 'colors';
-
-$subtract: 100px;
-
-* {
-    margin: 0; 
-    padding: 0;
-    box-sizing: border-box;
-    font-family: "Roboto", sans-serif;
-}
+@import 'intro';
 
 nav {
     display: flex;
@@ -42,8 +32,7 @@ center {
     $search-bar-length: 600px;
 
     #search-bar {
-        display: flex;
-        align-items: center;
+        @extend %flex-vertical;
         border: 1px solid $grayish;
         width: $search-bar-length;
         height: 50px;
@@ -59,39 +48,28 @@ center {
         }
 
         input[type="text"]{
-            background: transparent;
-            border: none;
-            outline: none;
+            @extend %no-border-outline;
             width: calc($search-bar-length - 70px);
             font-size: 17px;
             padding: 5px 16px;
         }
 
-        input[type="submit"]{
-            display: none;
-        }
-
         &:hover {
             box-shadow: 0px 0px 3px 2px rgba(0,0,0,0.1);
-            // box-shadow: -2px 2px 2px 2px rgba(0,0,0,0.3);
         }
     }
 
     .buttons {
-        font-family: Arial, Helvetica, sans-serif;
-        button {
+        input[type="submit"] {
             background-color: $light-gray;
-            padding: 12px 12px;
+            padding: 12px;
             width: 150px;
             margin-left: 12px;
             border-radius: 4px;
             border: none;
             cursor: pointer;
-            a {
-                font-size: 15px;
-                color: $dark;
-                text-decoration: none;
-            }
+            font-size: 15px;
+            color: $dark;
 
             &:hover {
                 box-shadow: 0px 0px 3px 2px rgba(0,0,0,0.1);
