@@ -1,0 +1,27 @@
+{% extends 'encyclopedia/layout.html' %}
+{% load static %}
+
+{% block title %}{{ query }}{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'encyclopedia/ownstyles.css' %}">{% endblock %}
+
+{% block body %}
+    <div class="content" id="NORESULT_PAGE">
+        {% if exists == False %}
+            {% if possible_matches_length == 0 %}
+                <h1>Sorry!</h1>
+                <h5>No search results found for "{{ query }}".</h5>
+            {% else %}
+                {% if possible_matches_length == 1 %}
+                    <h3>1 match found for "{{ query }}":</h3>
+                {% else %}
+                    <h3>{{ possible_matches_length }} matches found for "{{ query }}":</h3>
+                {% endif %}
+                <ul>
+                    {% for i in possible_matches %}
+                        <li><a href="/wiki/{{ i }}">{{ i }}</a></li>
+                    {% endfor %}
+                </ul>
+            {% endif %}
+        {% endif %}
+    </div>
+{% endblock %}

@@ -1,20 +1,32 @@
 {% extends 'encyclopedia/layout.html' %}
+{% load static %}
 
-{% block title %}
-    {{ query }}
-{% endblock %}
+{% block title %}{{ query }}{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'encyclopedia/ownstyles.css' %}">{% endblock %}
+
+
 
 {% block body %}
-    {% if exist %}
-        <!-- with results -->
-        <div class="content" style="margin: 10px 20px">
-            {{ content|safe }}
-        </div>
-    {% else %}
-        <!-- no results -->
-        <h1 style="margin-left: 20px;">Sorry!</h1>
-        <h5 style="margin: 20px;">No search results found for "{{ query }}".</h5>
+    <div class="content" id="RESULTS_PAGE">
+        {% if exist %}
+            <!-- with results -->
+            <!-- <div class="content" style="margin: 10px 20px;"> -->
+            <div class="content" style="margin: 10px 20px;">
+                <form action="{% url 'encyclopedia:edit' %}" method="POST">
+                    {% csrf_token %}
+                    {{ content|safe }}
+                    <input type="text" name="query" value="{{ query }}">
+                    <button id="EditButton" type="submit">Edit Content</button>
+                </form>
+            </div>
+        {% else %}
+            <!-- no results -->
+            <!-- <h1 style="margin-left: 20px;">Sorry!</h1>
+            <h5 style="margin: 20px;">No search results found for "{{ query }}".</h5> -->
 
-    {% endif %}
+            <h1>Sorry!</h1>
+            <h5>No search results found for "{{ query }}".</h5>
 
+        {% endif %}
+    </div>
 {% endblock %}

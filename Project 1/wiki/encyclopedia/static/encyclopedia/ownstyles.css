@@ -1,0 +1,95 @@
+/* for all HTML pages */
+.content {
+    margin: 10px 20px;
+}
+
+/* for newPage.html */
+
+#NEWPAGE_HTML, #EDIT_PAGE {
+    margin: 10px 20px;
+}
+
+#NEWPAGE_HTML h2, #EDIT_PAGE h2 {
+    margin-bottom: 20px;
+}
+
+#NEWPAGE_HTML form, #EDIT_PAGE form {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+}
+
+#NEWPAGE_HTML #title, #EDIT_PAGE #title {
+    padding: 7px 18px; 
+    margin-bottom: 10px; 
+    font-weight: bold;
+    width: 80%;
+    border: 1px solid #DFE1E5; 
+    border-radius: 4px; 
+    outline: none;
+}
+
+#NEWPAGE_HTML textarea, #EDIT_PAGE textarea {
+    cursor: text; 
+    height: 70vh; 
+    width: 80%;
+    padding: 15px 18px; 
+    border: 1px solid #DFE1E5; 
+    border-radius: 4px; 
+    outline: none;
+}
+
+#NEWPAGE_HTML input[type="submit"], #EDIT_PAGE input[type="submit"] {
+    width: 80%;
+    margin-top: 10px;
+    background-color: rgba(6, 126, 255, 0.872);
+    color: white;
+    border: none;
+    font-size: 17px;
+    padding-top: 12px;
+    padding-bottom: 12px;
+    border-radius: 12px;
+    font-weight: bold;
+    /* background-color: ;#067EFF */
+}
+
+#NEWPAGE_HTML input[type="submit"]:hover, #EDIT_PAGE input[type="submit"]:hover{
+    background-color: #067EFF;
+}
+
+#NEWPAGE_HTML #error-message {
+    width: 80%;
+}
+
+/*
+#NEWPAGE_HTML .error-message {
+    margin-bottom: 20px;
+    color: red;
+}*/
+
+/* for results.html */
+
+#RESULTS_PAGE form button {
+    background-color: rgba(6, 126, 255, 0.872);
+    color: white;
+    border: none; outline: none;
+    font-size: 17px;
+    margin-top: 70px;
+    padding: 12px 50px;
+    border-radius: 5px;
+    font-weight: bold;
+}
+
+#RESULTS_PAGE form input {
+    display: none;
+}
+
+#RESULTS_PAGE form button:hover {
+    background-color: #067EFF;
+}
+
+/* for noresult.html */
+
+#NORESULT_PAGE h1{
+    margin-bottom: 70px;
+}

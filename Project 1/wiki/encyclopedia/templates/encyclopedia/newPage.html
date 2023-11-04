@@ -1,9 +1,26 @@
 {% extends 'encyclopedia/layout.html' %}
+{% load static %}
 
 {% block title %}Create New Page{% endblock %}
+{% block css %}<link rel="stylesheet" href="{% static 'encyclopedia/ownstyles.css' %}">{% endblock %}
 
 {% block body %}
-
-    create new page
-
+    <div class="container" id="NEWPAGE_HTML">
+        <h2>Create New Page</h2>
+        {% if error %}
+            <div class="alert alert-info" id="error-message" role="alert">
+                "{{ title }}" already exists in the repository.
+            </div>
+            <!-- <div class="error-message">
+                <h6>Cannot save new page!</h6>
+                <h6>"{{ title }}" already exists in the repository.</h6>
+            </div> -->
+        {% endif %}
+        <form action="{% url 'encyclopedia:saveNew' %}" method="POST">
+            {% csrf_token %}
+            <input id="title" name="title" type="text" placeholder="Title">
+            <textarea type="submit" name="content" placeholder="Markdown content" cols="10" rows="10">{{ content }}</textarea>
+            <input type="submit" value="Save">
+        </form>
+    </div>
 {% endblock %}

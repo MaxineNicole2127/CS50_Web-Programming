@@ -34,6 +34,17 @@ def results(request, tosearch):
             "exist" : False
         })
 
+'''
+
+class NewPageForm(forms.Form):
+    title = forms.CharField(
+        label = "",
+        widget = forms.TextInput(attrs={'placeholder': 'Title', 
+                                      'style' : 'padding: 7px 15px; border: 1px solid #DFE1E5; border-radius: 4px; outline: none;'})
+    )
+
+'''
+
 def createNewPage(request):
     return render(request, "encyclopedia/newPage.html")
 
@@ -49,11 +60,8 @@ def randomPage(request):
     })
 
 
-# class NewSearchForm(forms.Form):
-#     query = forms.CharField(
-#         label="", 
-#         widget=forms.TextInput(attrs={'placeholder': 'Search Encyclopedia'}))
-
+from django.urls import reverse
+from django.http import HttpResponseRedirect
 
 # not working
 def search(request):
@@ -61,22 +69,51 @@ def search(request):
     if request.method == "POST":
         query = request.POST['q']
         if queryPresent(query):
-            results = util.get_entry(query)
-            
-            return render(request, "encyclopedia/trial.html", {
-                'exists' : True,
-                "content" : markdowner.convert(results),
-                "query" : query
-            })
-        
+            return HttpResponseRedirect(reverse("encyclopedia:results", args = (query,)))
         else:
             possible_matches = []
             for element in util.list_entries():
                 if query in element:
                     possible_matches.append(element)
-            return render(request, "encyclopedia/trial.html", {
+            return render(request, "encyclopedia/noresult.html", {
                 'exists' : False,
                 "query" : query,
                 "possible_matches": possible_matches,
                 "possible_matches_length" : len(possible_matches)
             })
+
+def edit(request):
+    if request.method == "POST":
+        query = request.POST.get("query")
+        results = util.get_entry(query)
+        return render(request, "encyclopedia/editPage.html", {
+            "query": query,
+            "content" : results
+        })
+    
+def saveChangeInPage(request):
+    if request.method == "POST":
+        title = request.POST.get("title")
+        content = request.POST.get("content")
+        util.save_entry(title, content)
+        return HttpResponseRedirect(reverse("encyclopedia:results", args = (title,)))
+
+def saveNewContent(request):
+    if request.method == "POST":
+        title = request.POST.get("title")
+        content = request.POST.get("content")
+        if queryPresent(title):
+            return render(request, "encyclopedia/newPage.html", {
+                "error": True,
+                "title" : title,
+                "content" : content
+            })
+        else:
+            util.save_entry(title, content)
+            return HttpResponseRedirect(reverse("encyclopedia:results", args = (title,)))
+        
+    return render(request, "encyclopedia/newPage.html", {
+        "error": False,
+        "title" : "",
+        "content" : ""
+    })
