@@ -1,0 +1,29 @@
+{% extends 'encyclopedia/layout.html' %}
+
+{% block title %}
+    {{ query }}
+{% endblock %}
+
+{% block body %}
+    {% if exists %}
+        <div class="container" style="margin: 10px 20px">
+            {{ content|safe }}
+        </div>
+    {% else %}
+        {% if possible_matches_length == 0 %}
+            <h1 style="margin-left: 20px;">Sorry!</h1>
+            <h5 style="margin: 20px;">No search results found for "{{ query }}".</h5>
+        {% else %}
+            {% if possible_matches_length == 1 %}
+                <h3 style="margin: 20px">1 match found for "{{ query }}":</h3>
+            {% else %}
+                <h3 style="margin: 20px">{{ possible_matches_length }} matches found for "{{ query }}":</h3>
+            {% endif %}
+            <ul>
+                {% for i in possible_matches %}
+                    <li><a href="/wiki/{{ i }}">{{ i }}</a></li>
+                {% endfor %}
+            </ul>
+        {% endif %}
+    {% endif %}    
+{% endblock %}
