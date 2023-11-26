@@ -1,0 +1,42 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>Create New Listing</h2>
+    <form action="{% url 'create' %}" method="POST">
+        {% csrf_token %}
+        <input type="text" name="title" placeholder="Title" required> <br>
+        <input type="text" name="description" placeholder="Description" required> <br>
+        <input type="text" name="category" list="categories" placeholder="Category"> <br>
+        <datalist id="categories">
+            {% for category in category_list %}
+                <option value="{{ category }}"></option>
+            {% endfor %}
+        </datalist>
+        <input type="url" name="img_url" placeholder="Image URL" required> <br>
+        <input type="number" name="starting_bid" placeholder="Starting Bid" required> <br>
+        <input type="text" value="{{ user.id }}" name="lister" style="display: none;" required> <br>
+        <input type="submit">
+        <!-- 
+            <input type="text" name="country" list="countries" placeholder="C">
+            <datalist id="countries">
+                <option value="Afghanistan"></option>
+                <option value="Philippines"></option>
+                <option value="China"></option>
+                <option value="South Korea"></option>
+            </datalist>
+
+         -->
+        <!-- {{ form.title }} <br>
+        {{ form.description }} <br>
+        {{ form.category }} <br> 
+        {{ form.img_url }} <br>
+        {{ form.lister.as_hidden }} <br>
+        {{ form.price }} <br>
+        <input type="text" value="{{ user.id }}" name="lister" style="display: none;">
+        <input type="submit"> -->
+    </form>
+
+    <!-- {% if message %}
+        <p>{{ message }}</p>
+    {% endif %} -->
+{% endblock %}

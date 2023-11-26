@@ -1,0 +1,39 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <table>
+        <tr class="listing">
+            <td><img src="{{ listing.img_url }}" alt="{{ listing.listing_title }}" width="300px" height="250px"></td>
+            <td>
+                <h5>{{ listing.listing_title }}</h5>
+                <p>{{ listing.listing_description }}</p>
+                <p>Date Listed : {{ listing.date_listed }}</p>
+                <p>Category : {{ listing.listing_category }}</p>
+                <p>Lister : {{ listing.lister }}</p>
+                {% if listing.highest_bid == 0 %}
+                    <h6>Starting Bid: $ {{ listing.starting_bid }}</h6>
+                {% else %}
+                    <p>Starting Bid: $ {{ listing.starting_bid }}</p>
+                    <h6>Highest Bid: $ {{ listing.highest_bid }}</h6>
+                {% endif %}
+            </td>
+        </tr>
+    </table>
+
+    {% if listing.buyer.username == user.username %}
+        <h4>Congratulations! You won the bid war for this auction, and purchased the item </b> for <i>$ {{ listing.highest_bid }}</i></h4>
+    {% else %}
+        <h4>SOLD TO <b>{{ listing.buyer }}</b> for <i>$ {{ listing.highest_bid }}</i></h4>
+    {% endif %}
+
+    {% if no_of_comments != 0 %}
+        <div class="comments">
+            <h5>COMMENTS</h5>
+            {% for comment in comments %}
+                <h6>{{ comment.commenter }} ({{ comment.date_commented }})</h6>
+                <p>{{ comment.content }}</p>
+            {% endfor %}
+        </div>
+    {% endif %}
+
+{% endblock %}

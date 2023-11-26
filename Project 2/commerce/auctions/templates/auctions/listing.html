@@ -1,0 +1,97 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <table>
+        <tr class="listing">
+            <td><img src="{{ listing.img_url }}" alt="{{ listing.listing_title }}" width="300px" height="250px"></td>
+            <td>
+                <h5>{{ listing.listing_title }}</h5>
+                <p>{{ listing.listing_description }}</p>
+                <p>Date Listed : {{ listing.date_listed }}</p>
+                <p>Category : {{ listing.listing_category }}</p>
+                <p>Lister : {{ listing.lister }}</p>
+                {% if listing.highest_bid == 0 %}
+                    <h6>Starting Bid: $ {{ listing.starting_bid }}</h6>
+                {% else %}
+                    <p>Starting Bid: $ {{ listing.starting_bid }}</p>
+                    <h6>Highest Bid: $ {{ listing.highest_bid }}</h6>
+                {% endif %}
+                
+            </td>
+        </tr>
+    </table>
+
+
+    {% if user.is_authenticated and user.username == listing.lister.username %}
+    <div class="for-lister" style="display:flex;">
+        <form action="{% url 'end' listing.id %}" method = "POST">
+            {% csrf_token %}
+            <!-- <input type="text" value="{{ listing.id }}" name="listing_id" style="display: none;"> -->
+            <input type="submit" value="End Auction">
+        </form>
+
+        <form action="{% url 'delete' listing.id %}" method="POST">
+            {% csrf_token %}
+            <input type="submit" value="Delete">
+        </form>
+    </div>
+
+    {% elif user.username != listing.lister.username and listing.is_active %}
+    
+    <form action="{% url 'add' listing.id %}" method="POST">
+        {% csrf_token %}
+        <input type="text" value="{{ user.username }}" name="username" style="display: none;">
+        <input type="submit" value="Add to Watchlist">
+    </form>
+
+    <div class="bid">
+        {{ no_of_bids }} bid/s so far
+        <form action="{% url 'bid' listing.id %}" method = "POST">
+            {% csrf_token %}
+            <p>YOUR BID</p>
+            <input type="text" value="{{ user.id }}" name="bidder" style="display: none;">
+            {% if listing.highest_bid == 0 %}
+                <input type="number" name = "bid" value="0" min="{{ listing.starting_bid }}">
+            {% else %}
+                <input type="number" name = "bid" value="0" min="{{ listing.highest_bid }}">
+            {% endif %}
+            <input type="submit">
+        </form>
+
+        {% if message %}
+            <h4>{{ message }}</h4>
+        {% endif %}
+    </div>
+
+    {% endif %}
+
+    <div class="biddings-list">
+        <h3>Biddings</h3>
+        <ul>
+            {% for bid in biddings %}
+                <li>{{ bid }}</li>
+            {% endfor %}
+        </ul>
+    </div>
+
+    <div class="comments">
+        <h5>COMMENTS</h5>
+        <form action="{% url 'addComment' listing.id %}" method="POST">
+            {% csrf_token %}
+            <textarea type="text" style="height: 20vh; width: 40%;" name="comment"></textarea><br>
+            <input type="text" value="{{ user.id }}" name="commenter" style="display: none;"><br>
+            <input type="submit" value="Post">
+        </form>
+        
+
+
+        
+        {% for comment in comments %}
+            <h6>{{ comment.commenter }} ({{ comment.date_commented }})</h6>
+            <p>{{ comment.content }}</p>
+        {% endfor %}
+        
+    </div>
+
+    
+{% endblock %}

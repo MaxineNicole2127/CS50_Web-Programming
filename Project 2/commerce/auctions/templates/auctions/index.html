@@ -1,0 +1,56 @@
+{% extends "auctions/layout.html" %}
+
+{% block body %}
+    <h2>{{ title }}</h2>
+    <table>
+        {% for listing in listings %}
+            <tr class="listing">
+                    {% if page_type ==  "closed listings" %}
+                    <td>
+                        <a href="{% url 'closedListing' listing.id %}">
+                            <img src="{{ listing.img_url }}" alt="{{ listing.listing_title }}" width="200px" height="150px">
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'closedListing' listing.id %}">
+                            <h5>{{ listing.listing_title }}</h5>
+                            <p>{{ listing.listing_description }}</p>
+                            <p>{{ listing.date_listed }}</p>
+                            <h6>Price: $ {{ listing.starting_bid }}</h6>
+                        </a>
+                    </td>
+
+                    {% else %}
+                    <td>
+                        <a href="{% url 'listing' listing.id %}">
+                            <img src="{{ listing.img_url }}" alt="{{ listing.listing_title }}" width="200px" height="150px">
+                        </a>
+                    </td>
+                    <td>
+                        <a href="{% url 'listing' listing.id %}">
+                            <h5>{{ listing.listing_title }}</h5>
+                            <p>{{ listing.listing_description }}</p>
+                            <p>{{ listing.date_listed }}</p>
+                            <h6>Price: $ {{ listing.starting_bid }}</h6>
+                        </a>
+                    </td>
+                
+                    
+                    {% endif %}
+
+
+                    {% if page_type ==  "watchlist" %}
+                    <td>
+                        <form action="{% url 'deleteFromWatchlist' user.id %}" method="POST">
+                            {% csrf_token %}
+                            <input type="text" value="{{ listing.id }}" name="listing" style="display: none;">
+                            <input type="submit" value="DELETE">
+
+                        </form>
+                    </td>
+                    {% endif %}
+                
+            </tr>
+        {% endfor %}
+    </table>
+{% endblock %}
