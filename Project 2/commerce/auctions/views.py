@@ -208,6 +208,34 @@ def bid(request, listing_id):
     if(request.method == "POST"):
         bid_price = request.POST["bid"]
         bidder = User.objects.get(pk = int(request.POST["bidder"]))
+        
+        if(listing.biddings.filter(bid_price = bid_price).exists()):
+            return render(request, "auctions/listing.html", {
+                "listing" : listing,
+                "no_of_bids" : len(listing.biddings.all()),
+                "comments" : listing.comments.all(),
+                "biddings" : listing.biddings.all(),
+                "message" : "Please input an amount higher than the highest bid."
+            })
+
+        else:
+            bidding = Bid(bid_price = bid_price, bidder = bidder, listing = listing)
+            bidding.save()
+            listing.highest_bid = bidding.bid_price
+            listing.buyer = bidding.bidder
+            listing.save()
+
+            return HttpResponseRedirect(reverse("listing", args = (listing_id,)))
+
+        
+
+'''
+@login_required(login_url="/login")
+def bid(request, listing_id):
+    listing = Listing.objects.get(pk = listing_id)
+    if(request.method == "POST"):
+        bid_price = request.POST["bid"]
+        bidder = User.objects.get(pk = int(request.POST["bidder"]))
         bidding = Bid(bid_price = bid_price, bidder = bidder, listing = listing)
         bidding.save()
 
@@ -223,6 +251,31 @@ def bid(request, listing_id):
             "to_compare_to" : float(listing.highest_bid) + 1,
             "biddings" : listing.biddings.all()
         })
+
+
+@login_required(login_url="/login")
+def bid(request, listing_id):
+    listing = Listing.objects.get(pk = listing_id)
+    if(request.method == "POST"):
+        bid_price = request.POST["bid"]
+        bidder = User.objects.get(pk = int(request.POST["bidder"]))
+        bidding = Bid(bid_price = bid_price, bidder = bidder, listing = listing)
+        bidding.save()
+
+        listing.highest_bid = bidding.bid_price
+        listing.buyer = bidding.bidder
+        listing.save()
+
+        #return HttpResponseRedirect(reverse("listing", args = (listing_id,)))
+        return render(request, "auctions/listing.html", {
+            "listing" : listing,
+            "no_of_bids" : len(listing.biddings.all()),
+            "comments" : listing.comments.all(),
+            "to_compare_to" : float(listing.highest_bid) + 1,
+            "biddings" : listing.biddings.all()
+        })
+
+'''
 
 
 @login_required(login_url="/login")
