@@ -1,7 +1,105 @@
 {% extends "auctions/layout.html" %}
 
+{% block title %}
+    {{ listing.listing_title }}
+{% endblock %}
+
+
 {% block body %}
-    <table>
+
+<center id="closedListing-center">
+    <!-- <div class="declarative-message" style="background-color: #D9271C;">
+        {% if listing.buyer.username == user.username %}
+            <h1 id="declaration">CONGRATULATIONS!</h1>
+        {% elif listing.highest_bid == 0 %}
+            <h1 id="declaration">No one took the item.</h1>
+        {% else %}
+            <h1 id="declaration">SOLD TO</h1>
+        {% endif %}
+    </div> -->
+
+    {% if listing.buyer.username == user.username %}
+        <div class="declarative-message" style="background-color: #47ED6B;">
+    {% else %}
+        <div class="declarative-message" style="background-color: #D9271C;">
+    {% endif %}
+        {% if listing.buyer.username == user.username %}
+            <h1 id="declaration">CONGRATULATIONS!</h1>
+        {% elif listing.highest_bid == 0 %}
+            <h1 id="declaration">No one took the item.</h1>
+        {% else %}
+            <h1 id="declaration">SOLD TO</h1>
+        {% endif %}
+
+        </div>
+
+    <div class="longer-message">
+        {% if listing.buyer.username == user.username %}
+            <p id="the-message">
+                You won the bid war for this auction, <br>
+                and purchased the item for 
+                <p id="win-price">$ {{ listing.highest_bid }}.</p>
+            </p>
+        {% elif listing.highest_bid > 0 %}
+            <h1>
+                <p id="buyer" style="color: #47ED6B;">{{ listing.buyer.username }}</p>
+                for
+                <p id="win-price" style="color: #47ED6B;">${{ listing.highest_bid }}</p>
+            </h1>
+        {% endif %}
+    </div>
+
+    <div class="listing">
+        <div class="img_price">
+            <img src="{{ listing.img_url }}" alt="{{ listing.listing_title }}">
+            <div id="price">
+                {% if no_of_bids == 0 %}
+                    <h3 id="current-price">$ {{ listing.starting_bid }}</h3>
+                {% else %}
+                    <h3 id="current-price">$ {{ listing.highest_bid }}</h3>
+                {% endif %}
+                <div id="label">Winning Bid</div>
+            </div>
+        </div>
+
+        <div class="details-bidding">
+            <div class="details">
+                <h1 id="listing-title">{{ listing.listing_title }}</h1>
+                <p id="listing-category">{{ listing.listing_category }}</p>
+                <p id="listing-description">{{ listing.listing_description }}</p>
+                <div id="more_details">
+                    <div id="lister" class="more_details-detail"><p class="detail-label">Lister </p><p>{{ listing.lister }}</p></div>
+                    <div id="date-listed" class="more_details-detail"><p class="detail-label">Date Listed </p><p>{{ listing.date_listed }}</p></div>
+                    <div id="starting-bid" class="more_details-detail"><p class="detail-label">Starting Bid </p><p>$ {{ listing.starting_bid }}</p></div>
+                </div>
+            </div>
+            <button class="closed-sign">
+                CLOSED
+            </button>
+        </div>
+    </div>
+
+    <div class="comments">
+        <div id="title-part">
+            <h4 id="comment-title">COMMENTS</h4>
+            <h4>({{ no_of_comments }})</h4>
+        </div>
+        {% for comment in comments %}
+            <div class="user-comment">
+                <div class="comment-details">
+                    <p class="commenter">{{ comment.commenter }}</p>
+                    <p class="date-commented">{{ comment.date_commented }}</p>
+                </div>
+                <div class="user-comment-container">
+                    <p class="the-comment">{{ comment.content }}</p>
+                </div>
+            </div>
+        {% endfor %}
+    </div>
+</center>
+
+
+    <!-- <table>
         <tr class="listing">
             <td><img src="{{ listing.img_url }}" alt="{{ listing.listing_title }}" width="300px" height="250px"></td>
             <td>
@@ -35,5 +133,8 @@
             {% endfor %}
         </div>
     {% endif %}
+ -->
+
+
 
 {% endblock %}

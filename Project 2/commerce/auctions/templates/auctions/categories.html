@@ -1,7 +1,32 @@
 {% extends "auctions/layout.html" %}
 
+{% block title %}
+    Categories
+{% endblock %}
+
 {% block body %}
-    <h1>Categories</h1>
+    <!-- CATEGORIES -->
+    <center id="categories-center">
+        <h1 id="title">CATEGORIES</h1>
+        <ul class="list">
+            {% for category in categories %}
+                <li>
+                    <a href="{% url 'by_category' category.id %}">
+                        <h1>{{ category }}</h1>
+                    </a>
+                </li>
+            {% empty %}
+                <li>
+                    <a href="#">
+                        <h1>No category.</h1>
+                    </a>
+                </li>
+            {% endfor %}
+            <!-- <li><a href="#"><h1>Magical Items</h1></a></li>
+            -->
+        </ul>
+    </center>
+    <!-- <h1>Categories</h1>
     <ul>
         {% for category in categories %}
             <li>
@@ -12,5 +37,5 @@
         {% empty %}
             <li>No category</li>
         {% endfor %}
-    </ul>
+    </ul> -->
 {% endblock %}

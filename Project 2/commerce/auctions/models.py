@@ -22,6 +22,7 @@ class Listing(models.Model):
     listing_category = models.ForeignKey(Category, on_delete=models.CASCADE, related_name="categorizing", null=True, blank=True)
     watchers = models.ManyToManyField(User, blank = True, related_name = "watchlist")
     highest_bid = models.FloatField(default = 0)
+    current_price = models.FloatField(null=True, blank=True)
     buyer = models.ForeignKey(User, on_delete = models.CASCADE, related_name = "bought", null=True, blank=True)
     is_active = models.BooleanField(default=True)
     date_listed = models.DateField(default=datetime.date.today, blank = True)

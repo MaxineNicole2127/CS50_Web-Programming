@@ -1,7 +1,55 @@
 {% extends "auctions/layout.html" %}
 
-{% block body %}
+{% block title %}
+    Register
+{% endblock %}
 
+{% block body %}
+    
+<center id="register-center">
+    <div class="register-form">
+        <div id="title">Register</div>
+        
+        <form action="{% url 'register' %}" method="post">
+            {% csrf_token %}
+            <div class="answer-form">
+                <div class="input-title">Username</div>
+                <div class="input-container">
+                    <input class="form-control" autofocus type="text" name="username" placeholder="Username">
+                </div>
+            </div>
+            <div class="answer-form">
+                <div class="input-title">Email</div>
+                <div class="input-container">
+                    <input class="form-control" type="email" name="email" placeholder="Email Address">
+                </div>
+            </div>
+            
+            <div class="answer-form">
+                <div class="input-title">Password</div>
+                <div class="input-container">
+                    <input class="form-control" type="password" name="password" placeholder="Password">
+                </div>
+            </div>
+            <div class="answer-form">
+                <div class="input-title">Confirm Password</div>
+                <div class="input-container">
+                    <input class="form-control" type="password" name="confirmation" placeholder="Confirm Password">
+                </div>
+            </div>
+            <div class="register-login">
+                <p id="login">Already have an account? <a href="#">Log In here.</a></p>
+                <input class="btn btn-primary" type="submit" id="register" value="Register">
+            </div>
+        </form>
+
+    </div>
+</center>
+
+{% endblock %}
+
+
+<!-- 
     <h2>Register</h2>
 
     {% if message %}
@@ -25,6 +73,4 @@
         <input class="btn btn-primary" type="submit" value="Register">
     </form>
 
-    Already have an account? <a href="{% url 'login' %}">Log In here.</a>
-
-{% endblock %}
+    Already have an account? <a href="{% url 'login' %}">Log In here.</a> -->

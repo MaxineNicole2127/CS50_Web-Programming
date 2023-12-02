@@ -555,7 +555,7 @@ body nav .right-nav ul #nav-logout:hover {
 #createListing-page form .answer-form .input-container textarea{
   flex: 1;
   height: 100%;
-  font-size: 20px;
+  font-size: 17px;
   padding: 10px 15px;
   background: transparent;
   border: none; outline: none;

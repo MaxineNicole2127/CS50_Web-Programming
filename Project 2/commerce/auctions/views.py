@@ -11,23 +11,6 @@ from .models import User, Category, Listing, Bid, Comment
 categories = []
 listers = []
 
-'''
-class ListingForm(forms.Form):
-    title = forms.CharField(label = "Title", widget=forms.TextInput(attrs={'placeholder': 'Title'})) 
-    description = forms.CharField(label = "Description", required="False", widget=forms.TextInput(attrs={'placeholder': "Description"}))
-
-    for category in Category.objects.all():
-        categories.append((category.pk, category))
-
-    for user in User.objects.all():
-        listers.append((user.pk, user.username))
-
-    category = forms.ChoiceField(label = "Category", widget = forms.Select, choices = categories, required="False")
-    img_url = forms.CharField(widget=forms.TextInput(attrs={'placeholder': "Image URL"}))
-    price = forms.FloatField(label="Price", widget=forms.NumberInput(attrs={'placeholder': "Price"}))
-    lister = forms.ChoiceField(label = "Lister", widget = forms.Select, choices = listers, required="False")
-'''
-    
 def index(request):
     return render(request, "auctions/index.html", {
         "title" : "Active Listings",
@@ -108,36 +91,137 @@ def create(request):
     return render(request, "auctions/createListings.html", {
         "category_list" : Category.objects.exclude(category_title = "None").all()
     })
-    '''
-    if(request.method == "POST"):
-        form = ListingForm(request.POST)
-        if(form.is_valid()):
-            title = form.cleaned_data["title"]
-            description = form.cleaned_data["description"]
-            category_pk = int(form.cleaned_data["category"])
-            category = Category.objects.get(pk = category_pk)
-            starting_bid = form.cleaned_data["price"]
-            img_url = form.cleaned_data["img_url"]
 
-            form.cleaned_data["lister"] = request.POST["lister"]
-            lister_pk = int(form.cleaned_data["lister"])
-            lister = User.objects.get(pk = lister_pk)
+# @login_required(login_url="/login")
+# def create(request):
+#     if(request.method == "POST"):
+#         title = request.POST["title"]
+#         description = request.POST["description"]
+#         category_name = request.POST["category"]
 
-            # newListing = Listing(listing_title = title, listing_description = description, listing_category = category, img_url = img_url, starting_bid = starting_bid)
-            newListing = Listing(listing_title = title, lister = lister, listing_description = description, listing_category = category, img_url = img_url, starting_bid = starting_bid)
-            newListing.save()
-            # Listing.objects.create()
-            return HttpResponseRedirect(reverse("index"))
-        else:
-            return render(request, "auctions/createListings.html", {
-                "form": ListingForm(),
-                "message" : "Failed!"
-            })
+#         '''if(category_name == "None" or category_name == "" or category_name == "none"):
+#             category = Category.objects.get(category_title = "None")
+#         elif(not Category.objects.filter(category_title = category_name).exists()):
+#             newCategory = Category(category_title = category_name)
+#             newCategory.save()'''
+#         '''
+#         if(not Category.objects.filter(category_title = category_name).exists()):
+#             newCategory = Category(category_title = category_name)
+#             newCategory.save()'''
+        
+#         if(category_name == "None" or category_name == "" or category_name == "none"):
+#             category = Category.objects.get(category_title = "None")
+#         elif(not Category.objects.filter(category_title = category_name).exists()):
+#             newCategory = Category(category_title = category_name)
+#             newCategory.save()
+#             category = Category.objects.get(category_title = category_name)
+#         img_url = request.POST["img_url"]
+#         starting_bid = request.POST["starting_bid"]
+#         lister_pk = request.POST["lister"]
+#         lister = User.objects.get(pk = lister_pk)
+#         newListing = Listing(listing_title = title, lister = lister, listing_description = description, listing_category = category, img_url = img_url, starting_bid = starting_bid)
+#         newListing.save()
+        
+#         return HttpResponseRedirect(reverse("index"))
 
-    return render(request, "auctions/createListings.html", {
-        "form": ListingForm()
-    })
-    '''
+#     return render(request, "auctions/createListings.html", {
+#         "category_list" : Category.objects.exclude(category_title = "None").all()
+#     })
+#     '''
+#     if(request.method == "POST"):
+#         form = ListingForm(request.POST)
+#         if(form.is_valid()):
+#             title = form.cleaned_data["title"]
+#             description = form.cleaned_data["description"]
+#             category_pk = int(form.cleaned_data["category"])
+#             category = Category.objects.get(pk = category_pk)
+#             starting_bid = form.cleaned_data["price"]
+#             img_url = form.cleaned_data["img_url"]
+
+#             form.cleaned_data["lister"] = request.POST["lister"]
+#             lister_pk = int(form.cleaned_data["lister"])
+#             lister = User.objects.get(pk = lister_pk)
+
+#             # newListing = Listing(listing_title = title, listing_description = description, listing_category = category, img_url = img_url, starting_bid = starting_bid)
+#             newListing = Listing(listing_title = title, lister = lister, listing_description = description, listing_category = category, img_url = img_url, starting_bid = starting_bid)
+#             newListing.save()
+#             # Listing.objects.create()
+#             return HttpResponseRedirect(reverse("index"))
+#         else:
+#             return render(request, "auctions/createListings.html", {
+#                 "form": ListingForm(),
+#                 "message" : "Failed!"
+#             })
+
+#     return render(request, "auctions/createListings.html", {
+#         "form": ListingForm()
+#     })
+#     '''
+########################
+# def create(request):
+#     if(request.method == "POST"):
+#         title = request.POST["title"]
+#         description = request.POST["description"]
+#         category_name = request.POST["category"]
+
+#         '''if(category_name == "None" or category_name == "" or category_name == "none"):
+#             category = Category.objects.get(category_title = "None")
+#         elif(not Category.objects.filter(category_title = category_name).exists()):
+#             newCategory = Category(category_title = category_name)
+#             newCategory.save()'''
+#         '''
+#         if(not Category.objects.filter(category_title = category_name).exists()):
+#             newCategory = Category(category_title = category_name)
+#             newCategory.save()'''
+        
+#         if(category_name == "None" or category_name == "" or category_name == "none"):
+#             category = Category.objects.get(category_title = "None")
+#         elif(not Category.objects.filter(category_title = category_name).exists()):
+#             newCategory = Category(category_title = category_name)
+#             newCategory.save()
+#             category = Category.objects.get(category_title = category_name)
+#         img_url = request.POST["img_url"]
+#         starting_bid = request.POST["starting_bid"]
+#         lister_pk = request.POST["lister"]
+#         lister = User.objects.get(pk = lister_pk)
+#         newListing = Listing(listing_title = title, lister = lister, listing_description = description, listing_category = category, img_url = img_url, starting_bid = starting_bid)
+#         newListing.save()
+        
+#         return HttpResponseRedirect(reverse("index"))
+
+#     return render(request, "auctions/createListings.html", {
+#         "category_list" : Category.objects.exclude(category_title = "None").all()
+#     })
+#     '''
+#     if(request.method == "POST"):
+#         form = ListingForm(request.POST)
+#         if(form.is_valid()):
+#             title = form.cleaned_data["title"]
+#             description = form.cleaned_data["description"]
+#             category_pk = int(form.cleaned_data["category"])
+#             category = Category.objects.get(pk = category_pk)
+#             starting_bid = form.cleaned_data["price"]
+#             img_url = form.cleaned_data["img_url"]
+
+#             form.cleaned_data["lister"] = request.POST["lister"]
+#             lister_pk = int(form.cleaned_data["lister"])
+#             lister = User.objects.get(pk = lister_pk)
+
+#             # newListing = Listing(listing_title = title, listing_description = description, listing_category = category, img_url = img_url, starting_bid = starting_bid)
+#             newListing = Listing(listing_title = title, lister = lister, listing_description = description, listing_category = category, img_url = img_url, starting_bid = starting_bid)
+#             newListing.save()
+#             # Listing.objects.create()
+#             return HttpResponseRedirect(reverse("index"))
+#         else:
+#             return render(request, "auctions/createListings.html", {
+#                 "form": ListingForm(),
+#                 "message" : "Failed!"
+#             })
+
+#     return render(request, "auctions/createListings.html", {
+#         "form": ListingForm()
+#     })
+#     '''
 
 def listing(request, listing_id):
     listing = Listing.objects.get(id = listing_id)
@@ -145,7 +229,9 @@ def listing(request, listing_id):
         "listing" : listing,
         "no_of_bids" : len(listing.biddings.all()),
         "comments" : listing.comments.all(),
-        "biddings" : listing.biddings.all()
+        "biddings" : listing.biddings.all(),
+        "listing_watchers" : listing.watchers.all(),
+        "no_of_comments" : len(listing.comments.all())
     })
 
 @login_required(login_url="/login")
@@ -155,6 +241,7 @@ def endAuction(request, listing_id):
         listing_to_end = listing_id
         listing = Listing.objects.get(pk = listing_to_end)
         listing.is_active = False
+
         listing.save()
 
         return HttpResponseRedirect(reverse("index"))
@@ -198,8 +285,9 @@ def categories(request):
 def category(request, category_id):
     category = Category.objects.get(id = category_id)
     return render(request, "auctions/index.html", {
+        "page_type" : "category",
         "title" : category.category_title,
-        "listings" : category.categorizing.all()
+        "listings" : category.categorizing.exclude(is_active = False).all()
     })
 
 @login_required(login_url="/login")
@@ -312,7 +400,7 @@ def closedListing(request, listing_id): #for the product details
     listing = Listing.objects.get(id = listing_id)
     return render(request, "auctions/closedListing.html", {
         "listing" : listing,
-        "no_of_comments" : len(listing.biddings.all()),
+        "no_of_comments" : len(listing.comments.all()),
         "comments" : listing.comments.all(),
         "biddings" : listing.biddings.all()
     })

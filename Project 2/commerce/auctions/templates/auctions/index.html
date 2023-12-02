@@ -1,7 +1,83 @@
 {% extends "auctions/layout.html" %}
 
+{% block title %}
+    {% if page_type == "closed listings" %}
+        Closed Listings
+    {% elif page_type == "watchlist" %}
+        {{ user.username }}'s Watchlist
+    {% elif page_type == "category" %}
+        {{ title }}
+    {% else %}
+        Auction
+    {% endif %}
+{% endblock %}
+
 {% block body %}
-    <h2>{{ title }}</h2>
+    {% if page_type == "closed listings" %}
+        <h1 id="page-title">Closed Listings</h1>
+    {% elif page_type == "watchlist" %}
+        <h1 id="page-title">Watchlist</h1>
+    {% elif page_type == "category" %}
+        <h1 id="page-title">{{ title }}</h1>
+    {% else %}
+        <h1 id="page-title">Active Listings</h1>
+    {% endif %}
+    <center id="activeListings-center">
+        <section class="listings">
+            {% for listing in listings %}
+                {% if page_type ==  "closed listings" %}
+                    <a href="{% url 'closedListing' listing.id %}">
+                {% else %}
+                    <a href="{% url 'listing' listing.id %}">
+                {% endif %}
+                        <div class="item">
+                            <img src="{{ listing.img_url }}" alt="{{ listing.listing_title }}">
+                            <div class="details">
+                                <h4 class="item-title">{{ listing.listing_title }}</h4>
+                                <p class="item-description">{{ listing.listing_description }}</p>
+                                {% if listing.highest_bid == 0 %}
+                                    <p class="item-price">${{ listing.starting_bid }}</p>
+                                {% else %}
+                                    <p class="item-price">${{ listing.highest_bid }}</p>
+                                {% endif %}
+                            </div>
+                        </div>
+                    </a>
+
+                    {% if page_type == "watchlist" %}
+                        <div id="deleteFromWL">
+                            <div id="background"></div>
+                            <form action="{% url 'deleteFromWatchlist' user.id %}" method="POST">
+                                {% csrf_token %}
+                                <input type="text" value="{{ listing.id }}" name="listing" style="display: none;">
+                                
+                                <i class="fa-solid fa-x">
+                                    <input type="submit" value="">
+                                </i>
+                            </form>
+                        </div>
+                    {% endif %}
+            {% endfor %}
+
+            <!-- 
+                {% if page_type ==  "watchlist" %}
+                    <td>
+                        <form action="{% url 'deleteFromWatchlist' user.id %}" method="POST">
+                            {% csrf_token %}
+                            <input type="text" value="{{ listing.id }}" name="listing" style="display: none;">
+                            <input type="submit" value="DELETE">
+
+                        </form>
+                    </td>
+                {% endif %}
+            -->
+            
+        </section>
+    </center>
+
+
+
+    <!-- <h2>{{ title }}</h2>
     <table>
         {% for listing in listings %}
             <tr class="listing">
@@ -52,5 +128,5 @@
                 
             </tr>
         {% endfor %}
-    </table>
+    </table> -->
 {% endblock %}

@@ -4,10 +4,64 @@
 <html lang="en">
     <head>
         <title>{% block title %}Auctions{% endblock %}</title>
-        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+        <!-- <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous"> -->
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" integrity="sha512-iecdLmaskl7CVkqkXNQ/ZH/XLlvWZOJyj7Yy7tcenmpD1ypASozpmT/E0iPtmFIB46ZmdtAc9eNBvH0H/ZpiBw==" crossorigin="anonymous" referrerpolicy="no-referrer" />
         <link href="{% static 'auctions/styles.css' %}" rel="stylesheet">
+        <link rel="icon" href="https://png.pngtree.com/png-clipart/20191206/ourlarge/pngtree-auction-icon-in-neon-style-png-image_2073296.jpg">
     </head>
     <body>
+        <nav>
+            <div class="left-nav">
+                <h1><a href="{% url 'index' %}">AUCTION</a></h1>
+                {% if user.is_authenticated %}
+                    <p>Welcome, <a href="{% url 'index' %}" id="username"><i>{{ user.username }}</i></a> !</p>
+                {% else %}
+                    <p><i>Not signed in</i></p>
+                {% endif %}
+            </div>
+            <div class="right-nav">
+                <ul>
+                    <li class="nav-item">
+                    </li>
+                        <div class="dropdown-listings">
+                            <button class="listings-button">
+                                Listings
+                                <i class="fa fa-caret-down"></i>
+                            </button>
+                            <div class="dropdown-content">
+                                <a href="{% url 'index' %}">Active Listings</a>
+                                <a href="{% url 'closed' %}">Closed Listings</a>
+                            </div>
+                        </div>
+    
+                        <li class="nav-item"><a class="nav-link" href="{% url 'categories' %}">Categories</a></li>
+                        {% if user.is_authenticated %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'watchlist' user.id %}">Watchlist</a></li>
+                        {% else %}
+                            <li class="nav-item"><a class="nav-link" href="{% url 'login' %}">Watchlist</a></li>
+                        {% endif %}
+                        <li class="nav-item"><a class="nav-link" href="{% url 'create' %}">Create Listing</a></li>
+                        
+                        {% if user.is_authenticated %}
+                            <button class="nav-button" id="nav-logout">
+                                <a class="nav-link" href="{% url 'logout' %}">Log Out</a>
+                            </button>
+                        {% else %}
+                            <li class="nav-item">
+                                <a class="nav-link" href="{% url 'register' %}">Register</a>
+                            </li>
+                            <button class="nav-button" id="nav-logout">
+                                <a class="nav-link" href="{% url 'login' %}">Login</a>
+                            </button>
+                            <!-- <li class="nav-item">
+                                <a class="nav-link" href="{% url 'login' %}">Log In</a>
+                            </li> -->
+                        {% endif %}
+                            
+                </ul>
+            </div>
+        </nav>
+<!--         
         <h1>Auctions</h1>
         <div>
             {% if user.is_authenticated %}
@@ -40,7 +94,7 @@
                 </li>
             {% endif %}
         </ul>
-        <hr>
+        <hr> -->
         {% block body %}
         {% endblock %}
     </body>

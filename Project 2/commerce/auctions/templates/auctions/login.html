@@ -1,8 +1,66 @@
 {% extends "auctions/layout.html" %}
 
-{% block body %}
+{% block title %}
+    Login
+{% endblock %}
 
-    <h2>Login</h2>
+
+{% block body %}
+    
+    <center id="login-center">
+        {% if message %}
+            <div>{{ message }}</div>
+        {% endif %}
+
+        <div class="login-form">
+            <div id="title">Login</div>
+            
+            <form action="{% url 'login' %}" method="post">
+                {% csrf_token %}
+            <div class="answer-form">
+                <div class="input-title">Username</div>
+                <div class="input-container">
+                    <input autofocus class="form-control" type="text" name="username" placeholder="Username">
+                </div>
+            </div>
+            <div class="answer-form">
+                <div class="input-title">Password</div>
+                <div class="input-container">
+                    <input class="form-control" id="user-password" type="password" name="password" placeholder="Password">
+                </div>
+            </div>
+
+            <div class="login-register">
+                <p id="register">Don't have an account? <a href="{% url 'register' %}">Register here.</a></p>
+                <input class="btn btn-primary" type="submit" id="login" value="Login">
+            </div>
+
+            </form>
+        </div>
+    
+    </center> 
+
+
+
+
+
+
+
+
+    <!-- <center id="login-center">
+        <div class="login-form">
+            <div id="title">Login</div>
+
+            <form action="{% url 'login %'}" method="POST">
+                {% csrf_token %}
+
+
+            </form>
+
+        </div>
+    </center> -->
+
+    <!-- <h2>Login</h2>
 
     {% if message %}
         <div>{{ message }}</div>
@@ -19,6 +77,6 @@
         <input class="btn btn-primary" type="submit" value="Login">
     </form>
 
-    Don't have an account? <a href="{% url 'register' %}">Register here.</a>
+    Don't have an account? <a href="{% url 'register' %}">Register here.</a> -->
 
 {% endblock %}

@@ -1,6 +1,58 @@
 {% extends "auctions/layout.html" %}
 
+{% block title %}
+    New Listing
+{% endblock %}
+
 {% block body %}
+
+<div id="createListing-page">
+    <h2>Create New Listing</h2>
+    <form action="{% url 'create' %}" method="POST">
+        {% csrf_token %}
+        <div class="answer-form">
+            <div class="input-title">Title</div>
+            <div class="input-container">
+                <input autofocus type="text" name="title" placeholder="Title" required>
+            </div>
+        </div>
+        <div class="answer-form">
+            <div class="input-title">Description</div>
+            <div class="input-container" id="textfield">
+                <textarea type="text" name="description" placeholder="Description" required></textarea>
+            </div>
+        </div>
+        <div class="answer-form">
+            <div class="input-title">Category</div>
+            <div class="input-container">
+                <input type="text" name="category" list="categories" placeholder="Category">
+                <datalist id="categories">
+                    {% for category in category_list %}
+                        <option value="{{ category }}"></option>
+                    {% endfor %}
+                </datalist>
+            </div>
+        </div>
+        <div class="answer-form">
+            <div class="input-title">Image URL</div>
+            <div class="input-container">
+                <input type="url" name="img_url" placeholder="Image URL" required>
+            </div>
+        </div>
+        <div class="answer-form">
+            <div class="input-title">Starting Bid</div>
+            <div class="input-container">
+                <input type="number" name="starting_bid" placeholder="Starting Bid" required>
+            </div>
+        </div>
+        <input type="text" value="{{ user.id }}" name="lister" style="display: none;" required> <br>
+        <div class="break"></div>
+        <input type="submit" id="create-listing" value="Create"> 
+    </form>
+</div>
+
+
+<!-- <div id="createListing-page">
     <h2>Create New Listing</h2>
     <form action="{% url 'create' %}" method="POST">
         {% csrf_token %}
@@ -16,27 +68,8 @@
         <input type="number" name="starting_bid" placeholder="Starting Bid" required> <br>
         <input type="text" value="{{ user.id }}" name="lister" style="display: none;" required> <br>
         <input type="submit">
-        <!-- 
-            <input type="text" name="country" list="countries" placeholder="C">
-            <datalist id="countries">
-                <option value="Afghanistan"></option>
-                <option value="Philippines"></option>
-                <option value="China"></option>
-                <option value="South Korea"></option>
-            </datalist>
-
-         -->
-        <!-- {{ form.title }} <br>
-        {{ form.description }} <br>
-        {{ form.category }} <br> 
-        {{ form.img_url }} <br>
-        {{ form.lister.as_hidden }} <br>
-        {{ form.price }} <br>
-        <input type="text" value="{{ user.id }}" name="lister" style="display: none;">
-        <input type="submit"> -->
     </form>
+</div> -->
 
-    <!-- {% if message %}
-        <p>{{ message }}</p>
-    {% endif %} -->
+
 {% endblock %}

@@ -21,3 +21,4 @@ urlpatterns = [
     path("closedListings", views.closedListings, name="closed"),
     path("closedListings/<int:listing_id>", views.closedListing, name="closedListing")
 ]
+
