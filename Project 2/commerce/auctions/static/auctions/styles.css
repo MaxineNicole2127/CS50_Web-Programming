@@ -555,7 +555,7 @@ body nav .right-nav ul #nav-logout:hover {
 #createListing-page form .answer-form .input-container textarea{
   flex: 1;
   height: 100%;
-  font-size: 20px;
+  font-size: 17px;
   padding: 10px 15px;
   background: transparent;
   border: none; outline: none;
@@ -570,9 +570,15 @@ body nav .right-nav ul #nav-logout:hover {
   outline: none;
   cursor: pointer;
   padding: 10px 50px;
+  cursor: pointer;
   /* position: absolute;
   right: 0; bottom: 0; */
 }
+
+#createListing-page form #create-listing:hover {
+  background-color: #32be50;
+}
+
 
 #createListing-page form .break {
   flex-basis: 100%;
