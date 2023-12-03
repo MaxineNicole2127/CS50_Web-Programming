@@ -21,3 +21,6 @@ PROJECT TITLE: Commerce <br>
 DESCRIPTION: Design an eBay-like e-commerce auction site that will allow users to post auction listings, place bids on listings, comment on those listings, and add listings to a “watchlist.”
 
 Finished Output Demo: https://www.youtube.com/watch?v=z0GlhunV8Ug
+
+
+----*-*-*-*-*-*--- will take a pause on this course to focus on studying React Native for AppCon2023 ---*-*-*-*-*-*----
