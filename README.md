@@ -14,3 +14,10 @@ PROJECT TITLE: Wiki <br>
 DESCRIPTION: Design a Wikipedia-like online encyclopedia through Django Framework.
 
 Finished Output Demo: https://youtu.be/vbvB1ENI2NY
+
+**PROJECT # 2**<br>
+_LINK: https://cs50.harvard.edu/web/2020/projects/1/commerce/_ <br>
+PROJECT TITLE: Commerce <br>
+DESCRIPTION: Design an eBay-like e-commerce auction site that will allow users to post auction listings, place bids on listings, comment on those listings, and add listings to a “watchlist.”
+
+Finished Output Demo: https://www.youtube.com/watch?v=z0GlhunV8Ug
