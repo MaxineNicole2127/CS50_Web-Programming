@@ -43,19 +43,22 @@
 
                     <div id="addToWatchList">
                         <div id="background"></div>
-                        <form action="{% url 'add' listing.id %}" method="POST">
-                            {% csrf_token %}
-                            <!-- <input type="text" value="hello" name="listing" style="display: none;"> -->
-                            <input type="text" value="{{ user.username }}" name="username" style="display: none;">
-                            {% if user in listing_watchers %}
-                                <i class="fa-solid fa-eye" id="eye_in_watchlist">
-                                    <input type="submit" value="">
-                                </i>
-                            {% else %}
+                        {% if user not in listing_watchers %}
+                            <form action="{% url 'add' listing.id %}" method="POST">
+                                {% csrf_token %}
+                                <!-- <input type="text" value="hello" name="listing" style="display: none;"> -->
+                                <input type="text" value="{{ user.username }}" name="username" style="display: none;">
                                 <i class="fa-solid fa-eye" id="eye_not_in_watchlist">
                                     <input type="submit" value="">
                                 </i>
-                            {% endif %}
+                        {% else %}
+                            <form action="{% url 'deleteFromWatchlist' user.id %}" method="POST">
+                                {% csrf_token %}
+                                <input type="text" value="{{ listing.id }}" name="listing" style="display: none;">
+                                <i class="fa-solid fa-eye" id="eye_in_watchlist">
+                                    <input type="submit" value="">
+                                </i>
+                        {% endif %}
                         </form>
                     </div>
                     

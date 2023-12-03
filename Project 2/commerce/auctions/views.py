@@ -262,7 +262,7 @@ def addToWatchlist(request, listing_id):
     user = User.objects.get(username = request.POST["username"])
     user.watchlist.add(listing)
 
-    return HttpResponseRedirect(reverse("watchlist", args = (user.id,)))
+    return HttpResponseRedirect(reverse("listing", args = (listing.id,)))
 
 @login_required(login_url="/login")
 def watchlist(request, user_id):
@@ -386,7 +386,7 @@ def deleteFromWatchlist(request, user_id):
         listing = Listing.objects.get(pk = int(request.POST["listing"]))
         user.watchlist.remove(listing)
 
-        return HttpResponseRedirect(reverse("watchlist", args = (user.id,)))
+        return HttpResponseRedirect(reverse("listing", args = (listing.id,)))
     
 def closedListings(request): #for the list
     return render(request, "auctions/index.html", {

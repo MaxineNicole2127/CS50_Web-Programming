@@ -690,6 +690,12 @@ body nav .right-nav ul #nav-logout:hover {
 #listing-center .listing .details-bidding 
 .details #addToWatchList form #eye_in_watchlist{
   color: #D9271C;
+  cursor: pointer;
+}
+
+#listing-center .listing .details-bidding 
+.details #addToWatchList form #eye_in_watchlist:hover{
+  color: #FFF;
 }
 
 #listing-center .listing .details-bidding 
